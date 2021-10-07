@@ -69,6 +69,14 @@ public class RecommendedKeywordServiceTest {
         assertEquals(6, list.size());
     }
 
+    @Test
+    @DisplayName("검색어가 없으면")
+    public void test5() {
+        var keyword = "그렇게";
+        var list = recommendedKeywordService.getRecommendedKeywordsList(keyword);
+        assertEquals(0, list.size());
+    }
+
     private SearchKeyword getRecommendedKeywords(String keyword) {
         SearchKeyword recommendedKeyword = new SearchKeyword();
         recommendedKeyword.setKeyword(keyword);
