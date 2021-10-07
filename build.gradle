@@ -1,0 +1,54 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'io.freefair.lombok' version '5.3.0'
+}
+
+group = 'musinsa'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+bootJar{
+    archivesBaseName = 'auto-complete'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ['web', 'data-jpa'].collect {
+        implementation "org.springframework.boot:spring-boot-starter-$it"
+    }
+    implementation 'org.springframework.boot:spring-boot-starter'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    compileOnly group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    compileOnly group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+lombok {
+    config['config.stopBubbling'] = 'true'
+    config['lombok.addLombokGeneratedAnnotation'] = 'true'
+    config['lombok.anyConstructor.addConstructorProperties'] = 'true'
+    config['lombok.fieldDefaults.defaultPrivate'] = 'true'
+    config['lombok.extern.findbugs.addSuppressFBWarnings'] = 'false'
+}
